@@ -4,33 +4,41 @@ import { useParams } from "next/navigation";
 import { videos } from "@/data/videos";
 
 export default function VideoPage() {
-  const { slug } = useParams();
-    const video = videos.find(v => v.slug === slug);
+  const params = useParams();
+    const slug = params?.slug as string;
 
-      if (!video) return <div className="text-white">Not found</div>;
+      const video = videos.find((v) => v.slug === slug);
 
-        const handleBuy = async () => {
-            const res = await fetch("/api/checkout", {
-                  method: "POST",
-                        body: JSON.stringify({ slug }),
-                            });
+        if (!video) {
+            return <div className="text-white">Not found</div>;
+              }
 
-                                const data = await res.json();
-                                    window.location.href = data.url;
-                                      };
+                const handleBuy = async () => {
+                    const res = await fetch("/api/checkout", {
+                          method: "POST",
+                                body: JSON.stringify({ slug }),
+                                    });
 
-                                        return (
-                                            <div className="min-h-screen bg-black text-white p-6">
-                                                  <h1 className="text-3xl mb-4">{video.title}</h1>
+                                        const data = await res.json();
+                                            window.location.href = data.url;
+                                              };
 
-                                                        <video src={video.preview} controls className="w-full mb-4" />
+                                                return (
+                                                    <div className="min-h-screen bg-black text-white p-6">
+                                                          <h1 className="text-3xl mb-4">{video.title}</h1>
 
-                                                              <button
-                                                                      onClick={handleBuy}
-                                                                              className="bg-purple-600 px-6 py-3 rounded-xl"
-                                                                                    >
-                                                                                            Unlock for $5
-                                                                                                  </button>
-                                                                                                      </div>
-                                                                                                        );
-                                                                                                        }
+                                                                <video
+                                                                        src={video.preview}
+                                                                                controls
+                                                                                        className="w-full mb-4"
+                                                                                              />
+
+                                                                                                    <button
+                                                                                                            onClick={handleBuy}
+                                                                                                                    className="bg-purple-600 px-6 py-3 rounded-xl"
+                                                                                                                          >
+                                                                                                                                  Unlock for $5
+                                                                                                                                        </button>
+                                                                                                                                            </div>
+                                                                                                                                              );
+                                                                                                                                              }

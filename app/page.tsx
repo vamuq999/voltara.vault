@@ -1,10 +1,9 @@
 export default function Home() {
       return (
-          <div className="min-h-screen bg-black text-white flex items-center justify-center">
-                <a href="/vault" className="text-2xl">
-                        Enter Voltara Vault ⚡
-                              </a>
-                                  </div>
-                                    );
-                                    }
+          <main style={{ padding: "40px", color: "white" }}>
+                <h1>Voltara Vault</h1>
+                      <p>Your media marketplace is live.</p>
+                          </main>
+                            );
+                            }
 }
